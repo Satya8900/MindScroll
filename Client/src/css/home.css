@@ -1,0 +1,18 @@
+/* HeroHome */
+
+.HeroHome-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.HeroHome-container>img {
+    width: 50%;
+}
+
+.HeroHome-text>h1 {
+    text-align: center;
+    margin-bottom: 0px;
+    color: #0365d1;
+    text-shadow: 0px 0px 2px #000;
+}
