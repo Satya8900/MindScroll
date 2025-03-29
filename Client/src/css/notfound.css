@@ -1,0 +1,11 @@
+/* NotFound */
+
+.NotFound-container {
+    display: flex;
+    justify-content: center;
+}
+
+.NotFound-img {
+    height: 95vh;
+    width: 100vw;
+}

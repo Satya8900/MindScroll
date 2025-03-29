@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Playwrite+IT+Moderna:wght@100..400&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --logo-clr: #2774ac;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.kalam-light {
+  font-family: "Kalam", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kalam-regular {
+  font-family: "Kalam", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kalam-bold {
+  font-family: "Kalam", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.playwrite-it-moderna-headline {
+  font-family: "Playwrite IT Moderna", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.logo-clr-txt {
+  color: #2774ac;
+}
