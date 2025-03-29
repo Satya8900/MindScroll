@@ -1,0 +1,23 @@
+{
+  "name": "mind-scroll",
+  "version": "1.0.0",
+  "description": "Scroll the thoughts, ideas, creativity, and knowledge.",
+  "homepage": "https://github.com/Satya8900/MindScroll#readme",
+  "bugs": {
+    "url": "https://github.com/Satya8900/MindScroll/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Satya8900/MindScroll.git"
+  },
+  "license": "ISC",
+  "author": "Satyanarayan Pattnayak",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
