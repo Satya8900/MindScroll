@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Poppins&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 
 :root {
   --logo-clr: #2774ac;
@@ -32,6 +32,12 @@
   font-family: "Roboto Mono", monospace;
   font-optical-sizing: auto;
   font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
   font-style: normal;
 }
 
