@@ -1,4 +1,4 @@
-import ApiError from "../utils/apiError.js";
+import ApiError from "../utils/ApiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import argon2 from "argon2";
@@ -47,7 +47,7 @@ const loginUser = asyncHandler(
             if (hashedPassword && await argon2.verify(hashedPassword, password)) {
                 const accessToken = jwt.sign({ userId }, process.env.JWT_SECRET_TOKEN, { expiresIn: "10d" });
 
-                res.cookie("accessToken", accessToken, {
+                res.cookie("accessToken_mindScroll", accessToken, {
                     httpOnly: true,
                     sameSite: "None",
                     secure: true

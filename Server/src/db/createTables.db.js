@@ -11,9 +11,22 @@ async function createUsers() {
 }
 
 
+async function createBlog() {
+    try {
+        await pool.query("SELECT blog_id FROM blog");
+    }
+    catch {
+        await pool.query("CREATE TABLE IF NOT EXISTS blog (blog_id SERIAL PRIMARY KEY,title VARCHAR(255) NOT NULL,content TEXT NOT NULL,author INT NOT NULL, create_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,FOREIGN KEY (author) REFERENCES users(users_id));")
+
+        console.log("blog Table Created successfully..")
+    }
+}
+
+
 
 function createTables() {
     createUsers();
+    createBlog();
 }
 
 export default createTables;
