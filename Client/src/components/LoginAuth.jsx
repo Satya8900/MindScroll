@@ -5,7 +5,6 @@ import Alert from "./Alert";
 function LoginAuth() {
 
     const location = useLocation();
-
     return (
         <>
             {location.state?.message && <Alert type="primary" message={location.state?.message} />}

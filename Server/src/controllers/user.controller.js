@@ -2,6 +2,7 @@ import ApiError from "../utils/apiError.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import argon2 from "argon2";
+import jwt from "jsonwebtoken";
 
 
 const signupUser = asyncHandler(
@@ -27,7 +28,41 @@ const signupUser = asyncHandler(
     }
 );
 
-const loginUser = asyncHandler();
+const loginUser = asyncHandler(
+    async (req, res) => {
+        const { email_number, password } = req.body;
+
+        if (!email_number || !password) {
+            return res.status(200).json(new ApiError(400, "Please fill all the required fields.", "Validation Error"))
+        }
+
+        const check_available_query = "SELECT id,password FROM users WHERE email = $1 OR number = $2"
+        let check_available_result = await pool.query(check_available_query, [email_number, email_number]);
+
+        if (check_available_result.rowCount > 0) {
+
+            const hashedPassword = check_available_result.rows[0]?.password;
+            const userId = check_available_result.rows[0]?.id;
+
+            if (hashedPassword && await argon2.verify(hashedPassword, password)) {
+                const accessToken = jwt.sign({ userId }, process.env.JWT_SECRET_TOKEN, { expiresIn: "10d" });
+
+                res.cookie("accessToken", accessToken, {
+                    httpOnly: true,
+                    sameSite: "Strict",
+                    secure: true
+                });
+                res.status(200).json(new ApiResponse(200, [], "Successfully Logged In..."));
+            }
+            else {
+                return res.status(200).json(new ApiError(400, "The provided password is incorrect.", "Invalid password"))
+            }
+        }
+        else {
+            return res.status(200).json(new ApiError(400, "User not exists with the email or phone number.", "User not found"))
+        }
+    }
+);
 
 
 
