@@ -1,13 +1,42 @@
 import assets from "../assets/assets"
 import { Link, useLocation } from "react-router-dom";
 import Alert from "./Alert";
+import { useState } from "react";
+import api from "../utils/api";
 
 function LoginAuth() {
 
+    const [email_number, setEmail_number] = useState("")
+    const [password, setPassword] = useState("")
+    const [loginissue, setLoginissue] = useState("");
+
+    async function submitHandler(e) {
+        e.preventDefault();
+        const data = { email_number, password };
+
+        try {
+            const res = await api.post("v1/user/login", data, { withCredentials: true });
+
+            if (res.data.statusCode === 200 && res.data.success) {
+                setLoginissue(res.data.message);
+            } else if (res.data.statusCode === 400 && !res.data.success) {
+                setLoginissue(res.data.message);
+            }
+        } catch (error) {
+            console.error("Login error:", error);
+            setLoginissue("Something went wrong. Try again!");
+        }
+
+        setEmail_number("");
+        setPassword("");
+    }
+
     const location = useLocation();
+    const message = location.state?.message || loginissue;
+
     return (
         <>
-            {location.state?.message && <Alert type="primary" message={location.state?.message} />}
+            {message && <Alert type="primary" message={message} />}
             <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
                 <div className="row border rounded-5 p-3 bg-white shadow box-area">
 
@@ -37,13 +66,15 @@ function LoginAuth() {
                                 <p>We are happy to have you back.</p>
                             </div>
 
-                            <form>
+                            <form onSubmit={submitHandler}>
                                 <div className="input-group mb-3">
                                     <input
                                         type="text"
                                         className="form-control form-control-lg bg-light fs-6"
                                         placeholder="Email address or Phone number"
                                         required
+                                        onChange={(e) => setEmail_number(e.target.value)}
+                                        value={email_number}
                                     />
                                 </div>
 
@@ -53,6 +84,8 @@ function LoginAuth() {
                                         className="form-control form-control-lg bg-light fs-6"
                                         placeholder="Password"
                                         required
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={password}
                                     />
                                 </div>
 

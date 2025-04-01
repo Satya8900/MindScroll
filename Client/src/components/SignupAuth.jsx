@@ -9,7 +9,7 @@ function SignupAuth() {
     const [email, setEmail] = useState("");
     const [number, setNumber] = useState("");
     const [password, setPassword] = useState("");
-    const [signedup, setSignedup] = useState("");
+    const [signupissue, setSignupissue] = useState("");
 
     const navigate = useNavigate();
 
@@ -24,11 +24,11 @@ function SignupAuth() {
             if (res.data.statusCode === 201 && res.data.success) {
                 navigate("/login", { state: { message: res.data.message } });
             } else if (res.data.statusCode === 400 && !res.data.success) {
-                setSignedup({ err: true, message: res.data.message });
+                setSignupissue(res.data.message);
             }
         } catch (error) {
             console.error("Signup error:", error);
-            setSignedup({ err: true, message: "Something went wrong. Try again!" });
+            setSignupissue("Something went wrong. Try again!");
         }
 
         setName("");
@@ -39,7 +39,7 @@ function SignupAuth() {
 
     return (
         <>
-            {signedup.err && <Alert type="primary" message={signedup.message} />}
+            {signupissue && <Alert type="primary" message={signupissue} />}
             <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
                 <div className="row border rounded-5 p-3 bg-white shadow box-area">
                     <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
