@@ -24,9 +24,9 @@ async function createBlog() {
 
 
 
-function createTables() {
-    createUsers();
-    createBlog();
+async function createTables() {
+    await createUsers();
+    await createBlog();
 }
 
 export default createTables;
