@@ -50,11 +50,32 @@ const updateBlog = asyncHandler(
 const allBlog = asyncHandler(
     async (req, res) => {
         const { page, limit } = req.query;
-        
-    }
-);
+        const offset = (page - 1) * limit;
+
+        const selectAll_query = "SELECT blog.blog_id, blog.title, blog.content, users.name AS author_name FROM blog INNER JOIN users ON blog.author = users.users_id ORDER BY blog.create_time DESC LIMIT $1 OFFSET $2;";
+        const result_selectAll_query = await pool.query(selectAll_query, [limit, offset]);
+
+        const count_All_query = "SELECT COUNT(*) AS total_blogs FROM blog;"
+        const result_count_All_query = await pool.query(count_All_query, []);
+
+        res.status(200).json(new ApiResponse(200, [result_selectAll_query.rows, result_count_All_query.rows], "All Blogs Retrievd Successfully,Thank you..!"));
+    });
 
 
+const userBlog = asyncHandler(
+    async (req, res) => {
+        const { page, limit } = req.query;
+        const author = req.user;
+        const offset = (page - 1) * limit;
+
+        const selectUser_query = "SELECT blog.blog_id, blog.title, blog.content, users.name AS author_name FROM blog INNER JOIN users ON blog.author = users.users_id WHERE blog.author = $3 ORDER BY blog.create_time DESC LIMIT $1 OFFSET $2;";
+        const result_selectUser_query = await pool.query(selectUser_query, [limit, offset, author]);
+
+        const count_User_query = "SELECT COUNT(*) AS total_blogs FROM blog WHERE blog.author = $1;"
+        const result_count_User_query = await pool.query(count_User_query, [author]);
+
+        res.status(200).json(new ApiResponse(200, [result_selectUser_query.rows, result_count_User_query.rows], "User's Blogs Retrievd Successfully,Thank you..!"));
+    });
 
 
 
@@ -62,5 +83,6 @@ export {
     createBlog,
     deleteBlog,
     updateBlog,
-    allBlog
+    allBlog,
+    userBlog
 }
