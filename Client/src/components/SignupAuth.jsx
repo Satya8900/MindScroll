@@ -39,7 +39,8 @@ function SignupAuth() {
 
     return (
         <>
-            {signupissue && <Alert type="primary" message={signupissue} />}
+            {signupissue && <Alert key={Math.random()} type="primary" message={signupissue} />}
+
             <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
                 <div className="row border rounded-5 p-3 bg-white shadow box-area">
                     <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">

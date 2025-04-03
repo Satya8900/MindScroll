@@ -36,7 +36,8 @@ function LoginAuth() {
 
     return (
         <>
-            {message && <Alert type="primary" message={message} />}
+            {message && <Alert key={Math.random()} type="primary" message={message} />}
+
             <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
                 <div className="row border rounded-5 p-3 bg-white shadow box-area">
 
