@@ -6,6 +6,7 @@
     margin: 0 auto;
     margin-top: 4vh;
     background-color: #f2f9fb;
+    overflow: hidden;
 }
 
 .author {

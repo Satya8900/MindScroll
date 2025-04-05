@@ -83,8 +83,26 @@ const logoutUser = asyncHandler(
 );
 
 
+const currentUser = asyncHandler(
+    async (req, res) => {
+        const user = req.user;
+        const getUser_query = "SELECT name,email,number FROM users WHERE users_id = $1";
+
+        const result_getUser = await pool.query(getUser_query, [user]);
+
+        if (result_getUser.rowCount > 0) {
+            res.status(200).json(new ApiResponse(200, [result_getUser.rows, result_getUser.rowCount], "Current User Retrieved Successfully"));
+        }
+        else {
+            return res.status(200).json(new ApiError(400, "User not exist or cookies tempered", "User Not Found"))
+        }
+    }
+);
+
+
 export {
     signupUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    currentUser
 }
