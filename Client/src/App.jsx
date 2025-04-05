@@ -5,6 +5,7 @@ import NotFound from "./pages/NotFound"
 import Home from "./pages/Home"
 import Login from "./pages/login"
 import Signup from "./pages/Signup"
+import BlogExpand from "./pages/BlogExpand"
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/Blog-expanded" element={<BlogExpand />} />
         </Routes>
       </main>
 

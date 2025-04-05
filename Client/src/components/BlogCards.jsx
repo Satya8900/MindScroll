@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api.js";
 import Alert from "../components/Alert.jsx";
+import { Link } from "react-router-dom";
+
 
 function BlogCards(props) {
 
@@ -32,6 +34,11 @@ function BlogCards(props) {
 
         async function fetchData() {
             try {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+
                 const res = await api.get(props.API, {
                     params: { page, limit }
                 });
@@ -58,11 +65,18 @@ function BlogCards(props) {
                             <div className="card h-100">
                                 <div className="card-body">
                                     <h5 className="card-title">{e.title}</h5>
-                                    <p className="card-text">{e.content}</p>
+                                    <p className="card-text text-justify">{e.content.substring(0, 340)}</p>
                                 </div>
                                 <div className="card-footer d-flex justify-content-between">
                                     <small className="text-body-secondary">By {e.author_name}</small>
-                                    <a className="card-link text-decoration-none">Read More..</a>
+                                    <Link
+                                        className="card-link text-decoration-none"
+                                        to="/Blog-expanded"
+                                        state={{ props: e }}
+                                    >
+
+                                        Read More..
+                                    </Link>
                                 </div>
                             </div>
                         </div>
