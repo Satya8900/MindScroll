@@ -28,6 +28,7 @@ const signupUser = asyncHandler(
     }
 );
 
+
 const loginUser = asyncHandler(
     async (req, res) => {
         const { email_number, password } = req.body;
@@ -47,12 +48,14 @@ const loginUser = asyncHandler(
             if (hashedPassword && await argon2.verify(hashedPassword, password)) {
                 const accessToken = jwt.sign({ userId }, process.env.JWT_SECRET_TOKEN, { expiresIn: "10d" });
 
-                res.cookie("accessToken_mindScroll", accessToken, {
+                const options = {
                     httpOnly: true,
                     sameSite: "None",
                     secure: true
-                });
-                res.status(200).json(new ApiResponse(200, [], "Successfully Logged In..."));
+                }
+
+                res.status(200).cookie("accessToken_mindScroll", accessToken, options)
+                    .json(new ApiResponse(200, [], "Successfully Logged In..."));
             }
             else {
                 return res.status(200).json(new ApiError(400, "The provided password is incorrect.", "Invalid password"))
@@ -65,8 +68,23 @@ const loginUser = asyncHandler(
 );
 
 
+const logoutUser = asyncHandler(
+    (req, res) => {
+
+        const options = {
+            httpOnly: true,
+            sameSite: "None",
+            secure: true
+        }
+
+        res.status(200).clearCookie("accessToken_mindScroll", options)
+            .json(new ApiResponse(200, [], "Successfully Logged Out..."));
+    }
+);
+
 
 export {
     signupUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
