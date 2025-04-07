@@ -51,7 +51,8 @@ const loginUser = asyncHandler(
                 const options = {
                     httpOnly: true,
                     sameSite: "None",
-                    secure: true
+                    secure: true,
+                    maxAge: 15 * 24 * 60 * 60 * 1000
                 }
 
                 res.status(200).cookie("accessToken_mindScroll", accessToken, options)
