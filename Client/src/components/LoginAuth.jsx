@@ -1,5 +1,5 @@
 import assets from "../assets/assets"
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Alert from "./Alert";
 import { useState } from "react";
 import api from "../utils/api";
@@ -9,6 +9,7 @@ function LoginAuth() {
     const [email_number, setEmail_number] = useState("")
     const [password, setPassword] = useState("")
     const [loginissue, setLoginissue] = useState("");
+    const navigate = useNavigate();
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -18,8 +19,8 @@ function LoginAuth() {
             const res = await api.post("v1/user/login", data, { withCredentials: true });
 
             if (res.data.statusCode === 200 && res.data.success) {
-                setLoginissue(res.data.message);
-            } else if (res.data.statusCode === 400 && !res.data.success) {
+                navigate("/", { state: { message: res.data.message } });
+            } else if (res.data.statusCode === 400 && res.data.success) {
                 setLoginissue(res.data.message);
             }
         } catch (error) {

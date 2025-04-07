@@ -1,8 +1,47 @@
+import { useEffect, useState } from "react";
 import assets from "../assets/assets.jsx";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import api from "../utils/api.js";
 
 
 function NavigationBar() {
+    const [logged, setLogged] = useState("");
+    const location = useLocation();
+
+    useEffect(() => {
+        async function fetchCurrentUser() {
+            try {
+                const res = await api.get("v1/user/current");
+                if (res.data.success && res.data?.data[1] == 1) {
+                    setLogged(true);
+                } else {
+                    setLogged(false);
+                }
+
+                // console.log(res.data)
+            } catch (error) {
+                console.log("Error:", error);
+                setLogged(false);
+            }
+        }
+        fetchCurrentUser();
+    })
+
+    async function logoutHandler() {
+        try {
+            const res = await api.post("v1/user/logout");
+            // console.log(res.data)
+            if (res.data.success && res.statusCode == 200) {
+                setLogged(false);
+            } else {
+                setLogged(true);
+            }
+        } catch (error) {
+            console.log("Error:", error);
+            setLogged(true);
+        }
+    }
+
     return (
         <>
             {/* <!-- Image and text --> */}
@@ -28,14 +67,40 @@ function NavigationBar() {
                                 <li className="nav-item">
                                     <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                                 </li>
-                                <li className="nav-item">
-                                    <NavLink className="nav-link active" aria-current="page" to="/signup">Sign Up</NavLink>
-                                </li>
-                                <li className="nav-item active">
-                                    <NavLink className="nav-link py-0" to="/login">
-                                        <button type="button" className="btn btn-outline-primary login-btn">Log In</button>
-                                    </NavLink>
-                                </li>
+                                {logged ?
+                                    (
+                                        <>
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link active" aria-current="page" to="/signup">My Blogs</NavLink>
+                                            </li>
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link active" aria-current="page" to="/hgd">Post New</NavLink>
+                                            </li>
+                                            <li className="nav-item active">
+                                                <NavLink className="nav-link py-0" to={"/"}>
+                                                    <button type="button"
+                                                        onClick={logoutHandler}
+                                                        className="btn btn-outline-primary login-btn">
+                                                        Logout
+                                                    </button>
+                                                </NavLink>
+                                            </li>
+                                        </>
+                                    )
+                                    :
+                                    (
+                                        <>
+                                            <li className="nav-item">
+                                                <NavLink className="nav-link active" aria-current="page" to="/signup">Sign Up</NavLink>
+                                            </li>
+                                            <li className="nav-item active">
+                                                <NavLink className="nav-link py-0" to="/login">
+                                                    <button type="button" className="btn btn-outline-primary login-btn">Log In</button>
+                                                </NavLink>
+                                            </li>
+                                        </>
+                                    )
+                                }
                             </ul>
                         </div>
                     </div>

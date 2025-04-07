@@ -94,7 +94,7 @@ const currentUser = asyncHandler(
             res.status(200).json(new ApiResponse(200, [result_getUser.rows, result_getUser.rowCount], "Current User Retrieved Successfully"));
         }
         else {
-            return res.status(200).json(new ApiError(400, "User not exist or cookies tempered", "User Not Found"))
+            return res.status(200).json(new ApiError(401, "User not exist or cookies tempered", "User Not Found"))
         }
     }
 );
