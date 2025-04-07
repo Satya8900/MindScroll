@@ -25,3 +25,22 @@
     margin: 25px 0px 0px 5px;
     line-height: 1.6;
 }
+
+#bootstrap-overrider .editBtn {
+    color: var(--logo-clr);
+    border-color: var(--logo-clr);
+    margin-top: 1px;
+}
+
+#bootstrap-overrider .editBtn:hover {
+    color: white;
+    background-color: var(--logo-clr);
+}
+
+.editBtn path {
+    fill: var(--logo-clr);
+}
+
+.editBtn:hover path {
+    fill: white
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api.js";
 import Alert from "../components/Alert.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function BlogCards(props) {
@@ -11,6 +11,7 @@ function BlogCards(props) {
     const [total, setTotal] = useState(1);
     const [response, setResponse] = useState([]);
     const [error_msg, setError_msg] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -19,6 +20,10 @@ function BlogCards(props) {
                 const res = await api.get(props.API, {
                     params: { page, limit }
                 });
+
+                if (!res.data.success) {
+                    navigate("/", { state: { message: res.data.message } });
+                }
 
                 setTotal(Math.max(res.data.data[1][0]?.total_blogs, 1));
             } catch (error) {
@@ -57,6 +62,15 @@ function BlogCards(props) {
         <>
             {error_msg && <Alert key={Math.random()} type="primary" message={error_msg} />}
 
+            {
+                props.isLogged ? (
+                    <div className="intro-msg ms-2 mt-4">
+                        <h2 className="mt-3 ms-3 mb-0">Hello,{response[0]?.author_name}</h2>
+                        <h5 className="ms-3">Here Are Your Posts:</h5>
+                    </div>
+                ) : null
+            }
+
             <div className="BlogCards-container mx-5 mt-5">
                 <div className="row row-cols-1 row-cols-md-3 g-4">
 
@@ -72,9 +86,8 @@ function BlogCards(props) {
                                     <Link
                                         className="card-link text-decoration-none"
                                         to="/Blog-expanded"
-                                        state={{ props: e }}
+                                        state={{ props: e, isLogged: props.isLogged }}
                                     >
-
                                         Read More..
                                     </Link>
                                 </div>

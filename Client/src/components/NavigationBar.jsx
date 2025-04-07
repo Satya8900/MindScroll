@@ -71,7 +71,7 @@ function NavigationBar() {
                                     (
                                         <>
                                             <li className="nav-item">
-                                                <NavLink className="nav-link active" aria-current="page" to="/signup">My Blogs</NavLink>
+                                                <NavLink className="nav-link active" aria-current="page" to="/My-Blogs">My Blogs</NavLink>
                                             </li>
                                             <li className="nav-item">
                                                 <NavLink className="nav-link active" aria-current="page" to="/hgd">Post New</NavLink>

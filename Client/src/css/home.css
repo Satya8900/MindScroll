@@ -23,3 +23,7 @@
 .text-justify {
     text-align: justify;
 }
+
+.intro-msg {
+    color: var(--logo-clr);
+}
