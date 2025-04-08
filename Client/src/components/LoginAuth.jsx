@@ -8,7 +8,9 @@ function LoginAuth() {
 
     const [email_number, setEmail_number] = useState("")
     const [password, setPassword] = useState("")
-    const [loginissue, setLoginissue] = useState("");
+    const location = useLocation();
+    const [loginissue, setLoginissue] = useState(location.state?.message);
+    const [key, setKey] = useState(1);
     const navigate = useNavigate();
 
     async function submitHandler(e) {
@@ -20,24 +22,24 @@ function LoginAuth() {
 
             if (res.data.statusCode === 200 && res.data.success) {
                 navigate("/", { state: { message: res.data.message } });
-            } else if (res.data.statusCode === 400 && res.data.success) {
+            } else if (res.data.statusCode === 400 && !res.data.success) {
                 setLoginissue(res.data.message);
+                setKey((prev) => prev + 1);
             }
         } catch (error) {
             console.error("Login error:", error);
             setLoginissue("Something went wrong. Try again!");
+            setKey((prev) => prev + 1);
         }
 
         setEmail_number("");
         setPassword("");
     }
 
-    const location = useLocation();
-    const message = location.state?.message || loginissue;
 
     return (
         <>
-            {message && <Alert type="primary" message={message} />}
+            {loginissue && <Alert key={key} type="primary" message={loginissue} />}
 
             <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
                 <div className="row border rounded-5 p-3 bg-white shadow box-area">

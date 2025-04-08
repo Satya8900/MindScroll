@@ -10,6 +10,7 @@ function SignupAuth() {
     const [number, setNumber] = useState("");
     const [password, setPassword] = useState("");
     const [signupissue, setSignupissue] = useState("");
+    const [key, setKey] = useState(1);
 
     const navigate = useNavigate();
 
@@ -25,10 +26,12 @@ function SignupAuth() {
                 navigate("/login", { state: { message: res.data.message } });
             } else if (res.data.statusCode === 400 && !res.data.success) {
                 setSignupissue(res.data.message);
+                setKey((prev) => prev + 1);
             }
         } catch (error) {
             console.error("Signup error:", error);
             setSignupissue("Something went wrong. Try again!");
+            setKey((prev) => prev + 1);
         }
 
         setName("");
@@ -39,7 +42,7 @@ function SignupAuth() {
 
     return (
         <>
-            {signupissue && <Alert key={Math.random()} type="primary" message={signupissue} />}
+            {signupissue && <Alert key={key} type="primary" message={signupissue} />}
 
             <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
                 <div className="row border rounded-5 p-3 bg-white shadow box-area">
