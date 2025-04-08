@@ -7,6 +7,7 @@ import Login from "./pages/login"
 import Signup from "./pages/Signup"
 import BlogExpand from "./pages/BlogExpand"
 import MyBlogs from "./pages/MyBlogs"
+import WriteBlog from "./pages/WriteBlog"
 
 
 function App() {
@@ -21,8 +22,9 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/Blog-expanded" element={<BlogExpand />} />
-          <Route path="/My-Blogs" element={<MyBlogs />} />
+          <Route path="/blog-expanded" element={<BlogExpand />} />
+          <Route path="/my-blogs" element={<MyBlogs />} />
+          <Route path="/write-blogs" element={<WriteBlog />} />
         </Routes>
       </main>
 

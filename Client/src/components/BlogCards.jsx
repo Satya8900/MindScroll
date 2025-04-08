@@ -85,7 +85,7 @@ function BlogCards(props) {
                                     <small className="text-body-secondary">By {e.author_name}</small>
                                     <Link
                                         className="card-link text-decoration-none"
-                                        to="/Blog-expanded"
+                                        to="/blog-expanded"
                                         state={{ props: e, isLogged: props.isLogged }}
                                     >
                                         Read More..

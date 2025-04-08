@@ -71,10 +71,10 @@ function NavigationBar() {
                                     (
                                         <>
                                             <li className="nav-item">
-                                                <NavLink className="nav-link active" aria-current="page" to="/My-Blogs">My Blogs</NavLink>
+                                                <NavLink className="nav-link active" aria-current="page" to="/my-blogs">My Blogs</NavLink>
                                             </li>
                                             <li className="nav-item">
-                                                <NavLink className="nav-link active" aria-current="page" to="/hgd">Post New</NavLink>
+                                                <NavLink className="nav-link active" aria-current="page" to="/write-blogs">Post New</NavLink>
                                             </li>
                                             <li className="nav-item active">
                                                 <NavLink className="nav-link py-0" to={"/"}>

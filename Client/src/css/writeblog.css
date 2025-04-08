@@ -1,0 +1,18 @@
+/* CreateBlog */
+
+.CreateBlog-title {
+    color: var(--logo-clr);
+    text-shadow: 0 0 1px #000;
+}
+
+.input-lable {
+    color: var(--logo-clr);
+}
+
+#bootstrap-overrider .smbtBtn {
+    background-color: var(--logo-clr);
+}
+
+#bootstrap-overrider .smbtBtn:hover {
+    background-color: #1f5a84;
+}
