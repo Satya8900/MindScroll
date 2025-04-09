@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../utils/api";
 import Alert from "./Alert";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateBlog() {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [message, setMessage] = useState("");
+    const [username, setUsername] = useState("");
     const [key, setKey] = useState(1);
+
+    const navigate = useNavigate();
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -29,11 +33,39 @@ function CreateBlog() {
         setContent("");
     }
 
+    useEffect(() => {
+        async function fetchCurrentUser() {
+            try {
+                const res = await api.get("v1/user/current");
+
+                if (!res.data.success) {
+                    navigate("/", { state: { message: res.data.message } });
+                }
+                else if (res.data.success && res.data?.data[1] == 1) {
+                    setUsername(res.data?.data[0][0].name);
+                }
+
+            } catch (error) {
+                console.log("Error:", error);
+                setMessage("Something went wrong. Try again!");
+            }
+        }
+
+        fetchCurrentUser();
+    }, []);
+
     return (
         <>
             {message && <Alert key={key} type="primary" message={message} />}
 
-            <div className="container py-5 mt-5 CreateBlog-container">
+            {
+                <div className="intro-msg ms-2 mt-4">
+                    <h2 className="mt-3 ms-3 mb-0">Hello,{username}</h2>
+                    <h5 className="ms-3">We’d love to hear your thoughts.</h5>
+                </div>
+            }
+
+            <div className="container py-5 CreateBlog-container">
                 <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6">
                         <div className="card shadow">

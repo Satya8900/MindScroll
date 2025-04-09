@@ -65,8 +65,8 @@ function BlogCards(props) {
             {
                 props.isLogged ? (
                     <div className="intro-msg ms-2 mt-4">
-                        <h2 className="mt-3 ms-3 mb-0">Hello,{response[0]?.author_name}</h2>
-                        <h5 className="ms-3">Here Are Your Posts:</h5>
+                        <h2 className="mt-3 ms-3 mb-0">Hi,{response[0]?.author_name}</h2>
+                        <h5 className="ms-3">Here’s a look at your posts:</h5>
                     </div>
                 ) : null
             }
