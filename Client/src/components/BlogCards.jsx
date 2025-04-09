@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api.js";
 import Alert from "../components/Alert.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 
 function BlogCards(props) {
@@ -10,7 +10,9 @@ function BlogCards(props) {
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(1);
     const [response, setResponse] = useState([]);
-    const [error_msg, setError_msg] = useState(false);
+    const location = useLocation();
+    const message = location.state?.message
+    const [error_msg, setError_msg] = useState(message);
     const navigate = useNavigate();
 
     useEffect(() => {
