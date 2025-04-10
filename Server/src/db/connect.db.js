@@ -7,7 +7,10 @@ const pool = new Pool({
     database: process.env.DB_DATABASE,
     password: process.env.DB_PASSWORD,
     port: process.env.DB_PORT,
-    idleTimeoutMillis: 60000 // Close idle connections after 60s
+    idleTimeoutMillis: 60000, // Close idle connections after 60s
+    ssl: {
+        rejectUnauthorized: false,
+    },
 });
 
 export default pool;
