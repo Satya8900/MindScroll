@@ -14,6 +14,7 @@ function BlogCards(props) {
     const message = location.state?.message
     const [error_msg, setError_msg] = useState(message);
     const navigate = useNavigate();
+    const [key, setKey] = useState(1);
 
     useEffect(() => {
 
@@ -31,6 +32,7 @@ function BlogCards(props) {
             } catch (error) {
                 console.error("Login error:", error);
                 setError_msg("Something went wrong. Try again!");
+                setKey((prev) => prev + 1);
             }
         }
 
@@ -54,6 +56,7 @@ function BlogCards(props) {
             } catch (error) {
                 console.error("Login error:", error);
                 setError_msg("Something went wrong. Try again!");
+                setKey((prev) => prev + 1);
             }
         }
 
@@ -62,7 +65,7 @@ function BlogCards(props) {
 
     return (
         <>
-            {error_msg && <Alert key={Math.random()} type="primary" message={error_msg} />}
+            {error_msg && <Alert key={key} type="primary" message={error_msg} />}
 
             {
                 props.isLogged ? (

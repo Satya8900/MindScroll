@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import Alert from "./Alert";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 function CreateBlog() {
@@ -12,6 +12,9 @@ function CreateBlog() {
     const [key, setKey] = useState(1);
 
     const navigate = useNavigate();
+    const location = useLocation();
+    const props = location.state?.props;
+    const isLogged = location.state?.isLogged;
 
     async function submitHandler(e) {
         e.preventDefault();
@@ -33,6 +36,29 @@ function CreateBlog() {
         setContent("");
     }
 
+    async function updateHandler(e) {
+        e.preventDefault();
+
+        const data = { title, content, blog_id: props.blog_id };
+
+        try {
+            const res = await api.patch("v1/blog/update", data);
+
+            if (!res.data.success) {
+                setMessage("Something went wrong. Try again!");
+                setKey((prev) => prev + 1);
+            }
+            else {
+                navigate("/my-blogs", { state: { message: res.data.message } });
+            }
+
+        } catch (error) {
+            console.log("Erorr:", error);
+            setMessage("Something went wrong. Try again!");
+            setKey((prev) => prev + 1);
+        }
+    }
+
     useEffect(() => {
         async function fetchCurrentUser() {
             try {
@@ -52,26 +78,49 @@ function CreateBlog() {
         }
 
         fetchCurrentUser();
+
+        if (props && isLogged) {
+            setTitle(props.title);
+            setContent(props.content);
+        }
+
     }, []);
 
     return (
         <>
             {message && <Alert key={key} type="primary" message={message} />}
 
-            {
-                <div className="intro-msg ms-2 mt-4">
-                    <h2 className="mt-3 ms-3 mb-0">Hello,{username}</h2>
-                    <h5 className="ms-3">We’d love to hear your thoughts.</h5>
-                </div>
-            }
+            <div className="intro-msg ms-2 mt-4">
+                <h2 className="mt-3 ms-3 mb-0">Hello,{username}</h2>
 
-            <div className="container py-5 CreateBlog-container">
+                {props && isLogged ?
+                    <h5 className="ms-3">We’d love to see what’s new update.</h5>
+                    :
+                    <h5 className="ms-3">We’d love to hear your thoughts.</h5>
+                }
+
+            </div>
+
+            <div className="container py-4 CreateBlog-container">
                 <div className="row justify-content-center">
                     <div className="col-md-8 col-lg-6">
                         <div className="card shadow">
                             <div className="card-body p-4">
-                                <h3 className="mb-4 text-center CreateBlog-title">Write a Blog Post</h3>
-                                <form id="blogForm" onSubmit={submitHandler}>
+
+                                {props && isLogged ?
+                                    <h3 className="mb-4 text-center CreateBlog-title">Update The Blog Post</h3>
+                                    :
+                                    <h3 className="mb-4 text-center CreateBlog-title">Write a Blog Post</h3>
+                                }
+
+                                <form id="blogForm" onSubmit={(e) => {
+                                    if (isLogged && props) {
+                                        updateHandler(e);
+                                    }
+                                    else {
+                                        submitHandler(e);
+                                    }
+                                }}>
                                     <div className="mb-3">
                                         <label htmlFor="title" className="form-label fw-medium input-lable">Title</label>
                                         <input
@@ -99,9 +148,24 @@ function CreateBlog() {
                                         ></textarea>
                                     </div>
                                     <div className="d-grid">
-                                        <button type="submit" className="btn btn-primary btn-lg smbtBtn">
-                                            Submit Post
-                                        </button>
+
+                                        {props && isLogged ?
+                                            <>
+                                                <button type="submit" className="btn btn-primary btn-lg smbtBtn">
+                                                    Update
+                                                </button>
+                                                <button type="button" className="btn btn-primary btn-lg smbtBtn mt-3"
+                                                    onClick={() => navigate(-1)}
+                                                >
+                                                    Cancel
+                                                </button>
+                                            </>
+                                            :
+                                            <button type="submit" className="btn btn-primary btn-lg smbtBtn">
+                                                Submit Post
+                                            </button>
+                                        }
+
                                     </div>
                                 </form>
                             </div>
