@@ -8,6 +8,7 @@ import Signup from "./pages/Signup"
 import BlogExpand from "./pages/BlogExpand"
 import MyBlogs from "./pages/MyBlogs"
 import WriteBlog from "./pages/WriteBlog"
+import Spinner from "./components/Spinner"
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
   return (
     <>
       <NavigationBar />
-
+      <Spinner />
       <main className="main-content-container">
         <Routes>
           <Route path="*" element={<NotFound />} />
