@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import assets from "../assets/assets.jsx";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import api from "../utils/api.js";
 
 
 function NavigationBar() {
     const [logged, setLogged] = useState("");
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchCurrentUser() {
@@ -31,8 +32,8 @@ function NavigationBar() {
         try {
             const res = await api.post("v1/user/logout");
             // console.log(res.data)
-            if (res.data.success && res.statusCode == 200) {
-                setLogged(false);
+            if (res.data.success && res.data.statusCode == 200) {
+                navigate("/")
             } else {
                 setLogged(true);
             }
@@ -77,7 +78,7 @@ function NavigationBar() {
                                                 <NavLink className="nav-link active" aria-current="page" to="/write-blogs">Post New</NavLink>
                                             </li>
                                             <li className="nav-item active" data-bs-dismiss="offcanvas">
-                                                <NavLink className="nav-link py-0" to={"/"}>
+                                                <NavLink className="nav-link py-0">
                                                     <button type="button"
                                                         onClick={logoutHandler}
                                                         className="btn btn-outline-primary login-btn">
