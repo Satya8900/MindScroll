@@ -1,7 +1,8 @@
 /* LoginAuth */
 
 .LoginAuth-container {
-    background: #ececec;
+    margin-top: 5%;
+    margin-bottom: 20vh;
 }
 
 .box-area {
@@ -9,7 +10,7 @@
 }
 
 .left-box {
-    background: #103cbe;
+    background: var(--logo-clr);
 }
 
 .featured-image>img {
@@ -30,14 +31,22 @@
     padding: 40px 30px 40px 40px;
 }
 
+.header-text {
+    color: var(--logo-clr);
+    text-shadow: 0 0 1px black;
+}
+
 ::placeholder {
     font-size: 16px;
 }
 
-.login-with-img {
-    width: 20px;
+.authBtn {
+    background: var(--logo-clr);
 }
 
+.authBtn:hover {
+    background-color: #1f5a84;
+}
 
 
 @media only screen and (max-width: 768px) {

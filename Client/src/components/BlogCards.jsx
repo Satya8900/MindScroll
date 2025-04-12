@@ -76,7 +76,7 @@ function BlogCards(props) {
                 ) : null
             }
 
-            <div className="BlogCards-container mx-5 mt-5">
+            <div className="BlogCards-container mx-4 mt-5">
                 <div className="row row-cols-1 row-cols-md-3 g-4">
 
                     {response.map((e) => (

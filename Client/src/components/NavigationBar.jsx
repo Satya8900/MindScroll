@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import assets from "../assets/assets.jsx";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import api from "../utils/api.js";
 
 
 function NavigationBar() {
     const [logged, setLogged] = useState("");
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchCurrentUser() {
@@ -31,8 +32,8 @@ function NavigationBar() {
         try {
             const res = await api.post("v1/user/logout");
             // console.log(res.data)
-            if (res.data.success && res.statusCode == 200) {
-                setLogged(false);
+            if (res.data.success && res.data.statusCode == 200) {
+                navigate("/")
             } else {
                 setLogged(true);
             }
@@ -64,20 +65,20 @@ function NavigationBar() {
                         </div>
                         <div className="offcanvas-body">
                             <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li className="nav-item">
+                                <li className="nav-item" data-bs-dismiss="offcanvas">
                                     <NavLink className="nav-link active" aria-current="page" to="/">Home</NavLink>
                                 </li>
                                 {logged ?
                                     (
                                         <>
-                                            <li className="nav-item">
+                                            <li className="nav-item" data-bs-dismiss="offcanvas">
                                                 <NavLink className="nav-link active" aria-current="page" to="/my-blogs">My Blogs</NavLink>
                                             </li>
-                                            <li className="nav-item">
+                                            <li className="nav-item" data-bs-dismiss="offcanvas">
                                                 <NavLink className="nav-link active" aria-current="page" to="/write-blogs">Post New</NavLink>
                                             </li>
-                                            <li className="nav-item active">
-                                                <NavLink className="nav-link py-0" to={"/"}>
+                                            <li className="nav-item active" data-bs-dismiss="offcanvas">
+                                                <NavLink className="nav-link py-0">
                                                     <button type="button"
                                                         onClick={logoutHandler}
                                                         className="btn btn-outline-primary login-btn">
@@ -90,10 +91,10 @@ function NavigationBar() {
                                     :
                                     (
                                         <>
-                                            <li className="nav-item">
+                                            <li className="nav-item" data-bs-dismiss="offcanvas">
                                                 <NavLink className="nav-link active" aria-current="page" to="/signup">Sign Up</NavLink>
                                             </li>
-                                            <li className="nav-item active">
+                                            <li className="nav-item active" data-bs-dismiss="offcanvas">
                                                 <NavLink className="nav-link py-0" to="/login">
                                                     <button type="button" className="btn btn-outline-primary login-btn">Log In</button>
                                                 </NavLink>

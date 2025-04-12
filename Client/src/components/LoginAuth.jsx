@@ -41,8 +41,8 @@ function LoginAuth() {
         <>
             {loginissue && <Alert key={key} type="primary" message={loginissue} />}
 
-            <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
-                <div className="row border rounded-5 p-3 bg-white shadow box-area">
+            <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center">
+                <div className="row border rounded-3 p-3 bg-white shadow box-area">
 
                     {/* Left Box */}
                     <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
@@ -94,7 +94,7 @@ function LoginAuth() {
                                 </div>
 
                                 <div className="input-group mb-3">
-                                    <button type="submit" className="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                                    <button type="submit" className="btn btn-lg btn-primary w-100 fs-6 authBtn">Login</button>
                                 </div>
                             </form>
 

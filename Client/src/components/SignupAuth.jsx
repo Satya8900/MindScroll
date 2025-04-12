@@ -44,8 +44,8 @@ function SignupAuth() {
         <>
             {signupissue && <Alert key={key} type="primary" message={signupissue} />}
 
-            <div className="LoginAuth-container poppins-regular d-flex justify-content-center align-items-center min-vh-100">
-                <div className="row border rounded-5 p-3 bg-white shadow box-area">
+            <div className="SignupAuth-container poppins-regular d-flex justify-content-center align-items-center">
+                <div className="row border rounded-3 p-3 bg-white shadow box-area">
                     <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
                         <div className="featured-image mb-3">
                             <img src={assets.Auth} className="img-fluid" alt="Featured" />
@@ -81,7 +81,7 @@ function SignupAuth() {
                                 </div>
 
                                 <div className="input-group mb-3">
-                                    <button type="submit" className="btn btn-lg btn-primary w-100 fs-6">Sign-up</button>
+                                    <button type="submit" className="btn btn-lg btn-primary w-100 fs-6 authBtn">Sign-up</button>
                                 </div>
                             </form>
 
