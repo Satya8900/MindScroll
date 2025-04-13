@@ -15,6 +15,11 @@
   margin-right: 3%;
 }
 
+#bootstrap-overrider .navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 #bootstrap-overrider .login-btn {
   color: var(--logo-clr);
   border-color: var(--logo-clr);
