@@ -45,7 +45,7 @@ function BlogCards(props) {
             try {
                 window.scrollTo({
                     top: 0,
-                    behavior: 'smooth'
+                    behavior: "auto",
                 });
 
                 const res = await api.get(props.API, {
