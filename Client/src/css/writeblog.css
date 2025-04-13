@@ -9,6 +9,11 @@
     color: var(--logo-clr);
 }
 
+#bootstrap-overrider .form-control:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 #bootstrap-overrider .smbtBtn {
     background-color: var(--logo-clr);
 }
