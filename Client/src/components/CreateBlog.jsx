@@ -79,15 +79,16 @@ function CreateBlog() {
 
         fetchCurrentUser();
 
-        setTitle("");
-        setContent("");
 
         if (props && isLogged) {
             setTitle(props.title);
             setContent(props.content);
+        } else {
+            setTitle("");
+            setContent("");
         }
 
-    });
+    }, [props, isLogged]);
 
     return (
         <>
