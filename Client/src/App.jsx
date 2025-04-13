@@ -9,6 +9,7 @@ import BlogExpand from "./pages/BlogExpand"
 import MyBlogs from "./pages/MyBlogs"
 import WriteBlog from "./pages/WriteBlog"
 import Spinner from "./components/Spinner"
+import ScrollToTop from "./utils/ScrollToTop"
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <>
       <NavigationBar />
       <Spinner />
+      <ScrollToTop />
       <main className="main-content-container">
         <Routes>
           <Route path="*" element={<NotFound />} />
